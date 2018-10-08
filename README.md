@@ -17,3 +17,11 @@
 #### Quota
 
 #### Testing
+
+### Technical Choices
+
+#### Languages
+
+#### Web Framework
+
+#### Database
