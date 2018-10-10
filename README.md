@@ -5,7 +5,8 @@
 
 #### Install and Migrate
 
-    pip install -r requirements.txt && python manage.py migrate
+    git clone git@github.com:Windsooon/chainstack_interview.git
+    pip install -r requirements.txt && cd Pass && python manage.py migrate
 
 #### Setup
 
