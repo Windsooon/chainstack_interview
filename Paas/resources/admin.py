@@ -78,6 +78,9 @@ class UserAdmin(BaseUserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-# Now register the new UserAdmin...
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'owner', 'create_time')
+    search_fields = ('owner',)
+
 admin.site.register(MyUser, UserAdmin)
-admin.site.register(Resource)
+admin.site.register(Resource, ResourceAdmin)
