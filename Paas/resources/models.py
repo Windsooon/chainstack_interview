@@ -72,3 +72,6 @@ class Resource(models.Model):
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='resource')
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.unique_id)[:6]
