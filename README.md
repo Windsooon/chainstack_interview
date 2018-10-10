@@ -19,7 +19,11 @@
     python manage.py runserver
 
 #### How to test
-Login with [Admin](http://127.0.0.1:8000/admin/) to test admin features, after create a normal user, you can use [Test Url](http://127.0.0.1:8000/) to test, for instance:
+Login with [Admin](http://127.0.0.1:8000/admin/) to test admin features.
+
+![Admin](https://raw.githubusercontent.com/Windsooon/chainstack_interview/master/Admin.png)
+
+After create a normal user, you can use [Test Url](http://127.0.0.1:8000/) to test, for instance:
 
     import requests
     from requests.auth import HTTPBasicAuth
@@ -34,6 +38,8 @@ Login with [Admin](http://127.0.0.1:8000/admin/) to test admin features, after c
     requests.delete(url, auth=HTTPBasicAuth('user@user.com', 'useruser'))
 
 and you can read the [API documents](http://127.0.0.1:8000/docs/) here
+
+![Docs](https://raw.githubusercontent.com/Windsooon/chainstack_interview/master/Docs.png)
 
 ### Tech Details
 #### Authentication
