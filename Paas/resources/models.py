@@ -34,6 +34,7 @@ class UserManager(BaseUserManager):
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, null=True)
+    quota = models.IntegerField(blank=True, null=True)
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
