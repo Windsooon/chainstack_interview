@@ -87,9 +87,6 @@ class ApiTestCase(TestCase):
             email='test@test.com', password='test_password')
         self.user2 = get_user_model().objects.create_user(
             email='test2@test.com', password='test_password')
-        # Create Superuser
-        self.superuser = get_user_model().objects.create_superuser(
-            email='super@user.com', password='test_password')
         self.client.force_login(self.user)
         response = self.client.post(
             reverse('resource-list'), content_type='application/json')
@@ -106,6 +103,20 @@ class ApiTestCase(TestCase):
             content_type='application/json')
         self.assertEqual(
             {"detail":"Only owner can access the resource."}, response.json())
+
+
+    def test_superuser_operate_others_resource(self):
+        '''
+        Superuser can list, create, delete his/her own resources
+        '''
+        self.user = get_user_model().objects.create_user(
+            email='test@test.com', password='test_password')
+        self.superuser = get_user_model().objects.create_superuser(
+            email='super@user.com', password='test_password')
+        self.client.force_login(self.user)
+        response = self.client.post(
+            reverse('resource-list'), content_type='application/json')
+        id = response.json()['id']
         self.client.logout()
         # Superuser can access resource
         self.client.force_login(self.superuser)
@@ -113,11 +124,7 @@ class ApiTestCase(TestCase):
             reverse('resource-detail', args=(id,)),
             content_type='application/json')
         self.assertEqual(1, response.json()['id'])
-
-    def test_superuser_operate_resource(self):
-        '''
-        Superuser can list, create, delete his/her own resources
-        '''
-        self.superuser = get_user_model().objects.create_superuser(
-            email='super@user.com', password='test_password')
-        self.client.force_login(self.user)
+        response = self.client.delete(
+            reverse('resource-detail', args=(id,)),
+            content_type='application/json')
+        self.assertEqual(0, Resource.objects.count())
