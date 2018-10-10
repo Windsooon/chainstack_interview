@@ -38,6 +38,8 @@ and you can read the [API documents](http://127.0.0.1:8000/docs/) here
 #### Authentication
 Usually, in Paas, we should use a Public/Private key to authentication, a server should generate two pairs of key:
 
+![pub_key](https://raw.githubusercontent.com/Windsooon/chainstack_interview/master/pub_key.png)
+
 Users can use PUB\_KEY, timestamp and parameters for authentication or they can use their PRI\_KEY to the signature.
 
 #### Resource
