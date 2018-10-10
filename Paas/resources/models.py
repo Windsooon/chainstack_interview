@@ -74,4 +74,4 @@ class Resource(models.Model):
     update_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.unique_id)[:6]
+        return str(self.unique_id)
