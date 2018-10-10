@@ -38,6 +38,30 @@ class ApiTestCase(TestCase):
         self.assertEqual(1, Resource.objects.count())
         self.assertEqual(response.content, b'["You do not have enough quota."]')
 
+    def test_unauth_user_can_not_access_resource(self):
+        self.user = get_user_model().objects.create_user(
+            email='test@test.com', password='test_password')
+        self.client.force_login(self.user)
+        # Create some resources
+        for _ in range(3):
+            response = self.client.post(
+                reverse('resource-list'), content_type='application/json')
+        id = response.json()['id']
+        self.client.logout()
+        # Unauth user can't get/create/delete resource
+        response = self.client.get(
+            reverse('resource-detail', args=(id,)),
+            content_type='application/json')
+        self.assertEqual({"detail":"Authentication credentials were not provided."}, response.json())
+        response = self.client.post(
+            reverse('resource-list'), content_type='application/json')
+        self.assertEqual({"detail":"Authentication credentials were not provided."}, response.json())
+        response = self.client.delete(
+            reverse('resource-detail', args=(id,)),
+            content_type='application/json')
+        self.assertEqual({"detail":"Authentication credentials were not provided."}, response.json())
+
+
     def test_user_list_resource(self):
         self.user = get_user_model().objects.create_user(
             email='test@test.com', password='test_password')
