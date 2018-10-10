@@ -1,13 +1,13 @@
-## This project just for test environment
+### This project just for a test environment
 
-### Requirements
+#### Requirements
     python >= python3.6
 
-### Install
-    
+#### Install and Migrate
+
     pip install -r requirements.txt && python manage.py migrate
 
-### Setup
+#### Setup
 
 1. Create superuser
 
@@ -17,7 +17,7 @@
 
     python manage.py runserver
 
-### How to test
+#### How to test
 Login with [Admin](http://127.0.0.1:8000/admin/) to test admin features, after create a normal user, you can use [Test Url](http://127.0.0.1:8000/) to test, for instance:
 
     import requests
@@ -32,24 +32,23 @@ Login with [Admin](http://127.0.0.1:8000/admin/) to test admin features, after c
     url = 'http://127.0.0.1:8000/resource/1/'
     requests.delete(url, auth=HTTPBasicAuth('user@user.com', 'useruser'))
 
-and you can read the [API documents here](http://127.0.0.1:8000/docs/)
+and you can read the [API documents](http://127.0.0.1:8000/docs/) here
 
 ### Tech Details
-
 #### Authentication
-Uaually in Paas, we shou use Public/Private key to authentication, server should generate two pair of key:
+Usually, in Paas, we should use a Public/Private key to authentication, a server should generate two pairs of key:
 
-Users can use PUB_KEY, timestamp and parameters for authentication or they can use their PRI_KEY to signature
+Users can use PUB\_KEY, timestamp and parameters for authentication or they can use their PRI\_KEY to the signature.
 
 #### Resource
-I did not use UUID as primary key for performance in a single relation database.
+I did not use UUID as the primary key for performance in a single relational database.
 
 #### Testing
 The test coverage is about 85%.
 
 ### Technical Choices
 #### Languages/Web Framework
-I used python/django for more than 3 years, so I choose python to in this project.
+I used Python/Django for more than 3 years, so I choose python to in this project.
 
 #### Database
-I used sqlite instead of mysql for testing.
+I used SQLite instead of mysql for testing.
