@@ -10,9 +10,9 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user =  self.context['request'].user
-        if user.quota:
-            if user.quota <= 1:
-                return Response(status=400)
+        if user.quota != None:
+            if user.quota < 1:
+                raise serializers.ValidationError('You do not have enough quota.')
             else:
                 user.quota -= 1
                 user.save()
