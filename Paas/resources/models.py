@@ -8,16 +8,13 @@ from django.contrib.auth import get_user_model
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, quota, password=None):
+    def create_user(self, email, quota=None, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
         """
         if not email:
             raise ValueError('Users must have an email address')
-
-        if not quota:
-            quota = None
 
         user = self.model(
             email=self.normalize_email(email),
