@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.response import Response
 from .serializers import ResourceSerializer
 from .models import Resource
 
@@ -9,3 +10,8 @@ class ResourceViewSet(viewsets.ModelViewSet):
     """
     queryset = Resource.objects.all().order_by('-create_time')
     serializer_class = ResourceSerializer
+
+    def list(self, request):
+        queryset = Resource.objects.filter(owner=request.user).order_by('-create_time')
+        serializer = ResourceSerializer(queryset, many=True)
+        return Response(serializer.data)
